@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="110" fill="#0e1014"/>
+  <rect x="24" y="24" width="464" height="464" rx="92" fill="none" stroke="#c9a227" stroke-width="6" opacity="0.55"/>
+  <path d="M256 96c22 46 60 74 108 84-48 10-86 38-108 84-22-46-60-74-108-84 48-10 86-38 108-84z" fill="#c9a227" opacity="0.28"/>
+  <text x="256" y="315" font-family="Amiri, Georgia, serif" font-size="200" fill="#e8c96a" text-anchor="middle">ح</text>
+  <circle cx="256" cy="404" r="7" fill="#c9a227"/>
+</svg>

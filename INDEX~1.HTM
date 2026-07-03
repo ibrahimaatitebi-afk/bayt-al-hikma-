@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0e1014">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Bayt al-Hikma — Ibrahim's Learning OS</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0e1014; --bg2:#14171e; --panel:#191d26; --panel2:#1f2430;
+  --line:#2a3040; --gold:#c9a227; --gold2:#e8c96a; --gold-dim:#8a7119;
+  --ink:#e9e4d8; --ink2:#a9a394; --ink3:#6f6a5e;
+  --green:#7fb069; --red:#c15b4e; --blue:#6a8fbf;
+  --serif:"Cormorant Garamond",Georgia,serif;
+  --sans:"Inter",-apple-system,system-ui,sans-serif;
+  --arab:"Amiri","Scheherazade New",serif;
+  --rad:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55;min-height:100vh}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.05;
+  background-image:radial-gradient(circle at 20% 10%, var(--gold) 0, transparent 45%),radial-gradient(circle at 85% 90%, var(--blue) 0, transparent 40%)}
+#app{position:relative;z-index:1;display:flex;min-height:100vh}
+
+/* ---- Sidebar ---- */
+nav#side{width:230px;flex-shrink:0;border-right:1px solid var(--line);padding:26px 14px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;background:var(--bg2)}
+.brand{padding:0 10px 22px}
+.brand .ar{font-family:var(--arab);font-size:30px;color:var(--gold2);line-height:1.3}
+.brand .en{font-family:var(--serif);font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);margin-top:2px}
+.brand .sub{font-size:11px;color:var(--ink3);margin-top:4px}
+.navbtn{display:flex;align-items:center;gap:11px;width:100%;padding:11px 12px;border:0;background:none;color:var(--ink2);font-family:var(--sans);font-size:14px;font-weight:500;border-radius:10px;cursor:pointer;text-align:left;margin-bottom:2px}
+.navbtn .ic{width:20px;text-align:center;font-size:15px}
+.navbtn:hover{background:var(--panel);color:var(--ink)}
+.navbtn.on{background:linear-gradient(120deg,rgba(201,162,39,.16),rgba(201,162,39,.05));color:var(--gold2)}
+.navbtn .pill{margin-left:auto;background:var(--gold);color:#141414;font-size:10.5px;font-weight:600;border-radius:99px;padding:1px 7px}
+#side .foot{margin-top:auto;padding:10px;font-size:11px;color:var(--ink3)}
+#side .foot b{color:var(--ink2)}
+
+/* ---- Main ---- */
+main{flex:1;min-width:0;padding:30px clamp(16px,4vw,48px) 110px;max-width:1060px}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(26px,4vw,34px);letter-spacing:.01em}
+h1 .amp{color:var(--gold2)}
+.crumb{font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:600}
+.lede{color:var(--ink2);max-width:640px;margin-top:6px}
+section.view{display:none;animation:fade .25s ease}
+section.view.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ---- Cards & layout ---- */
+.grid{display:grid;gap:14px;margin-top:22px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(215px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--rad);padding:18px 18px 16px;position:relative}
+.card.hl{border-color:rgba(201,162,39,.45);background:linear-gradient(160deg,rgba(201,162,39,.08),var(--panel) 55%)}
+.card h3{font-family:var(--serif);font-size:19px;font-weight:600;margin-bottom:6px}
+.card h4{font-size:13px;font-weight:600;color:var(--gold2);margin-bottom:6px;letter-spacing:.04em}
+.kicker{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);font-weight:600;margin-bottom:8px}
+.muted{color:var(--ink2);font-size:13.5px}
+.tiny{font-size:11.5px;color:var(--ink3)}
+hr.sep{border:0;border-top:1px solid var(--line);margin:14px 0}
+
+/* stats */
+.stat .big{font-family:var(--serif);font-size:34px;font-weight:700;color:var(--gold2);line-height:1.1}
+.stat .lbl{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-top:2px}
+.bar{height:7px;background:var(--bg);border-radius:99px;overflow:hidden;margin-top:8px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold-dim),var(--gold2));border-radius:99px;transition:width .5s ease}
+.spark{display:flex;align-items:flex-end;gap:3px;height:44px;margin-top:10px}
+.spark i{flex:1;background:var(--gold-dim);border-radius:2px 2px 0 0;min-height:2px;opacity:.75}
+.spark i.today{background:var(--gold2);opacity:1}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:7px;background:var(--gold);color:#17130a;font-family:var(--sans);font-weight:600;font-size:13.5px;border:0;border-radius:10px;padding:10px 16px;cursor:pointer}
+.btn:hover{background:var(--gold2)}
+.btn.ghost{background:transparent;color:var(--gold2);border:1px solid var(--gold-dim)}
+.btn.ghost:hover{background:rgba(201,162,39,.1)}
+.btn.small{padding:6px 11px;font-size:12.5px;border-radius:8px}
+.btn.quiet{background:var(--panel2);color:var(--ink2);border:1px solid var(--line)}
+.btn.quiet:hover{color:var(--ink)}
+.btn:disabled{opacity:.45;cursor:default}
+.iconbtn{background:var(--panel2);border:1px solid var(--line);color:var(--gold2);border-radius:99px;width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px}
+.iconbtn:hover{border-color:var(--gold-dim)}
+
+/* tabs */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:20px 0 4px}
+.tab{background:var(--panel);border:1px solid var(--line);color:var(--ink2);font-size:13px;font-weight:500;padding:8px 14px;border-radius:99px;cursor:pointer}
+.tab.on{background:rgba(201,162,39,.15);border-color:var(--gold-dim);color:var(--gold2)}
+.subview{display:none}.subview.on{display:block}
+
+/* checklists */
+.ck{display:flex;align-items:flex-start;gap:10px;padding:9px 4px;border-bottom:1px solid rgba(42,48,64,.6);cursor:pointer}
+.ck:last-child{border-bottom:0}
+.ck .box{width:19px;height:19px;flex-shrink:0;border:1.5px solid var(--ink3);border-radius:6px;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#141414}
+.ck.done .box{background:var(--gold);border-color:var(--gold)}
+.ck.done .t{color:var(--ink3);text-decoration:line-through}
+.ck .t{font-size:14px}
+
+/* arabic */
+.ar-lg{font-family:var(--arab);font-size:clamp(30px,6vw,44px);direction:rtl;line-height:1.9;color:var(--ink)}
+.ar-md{font-family:var(--arab);font-size:24px;direction:rtl;line-height:1.9}
+.tr{color:var(--gold2);font-style:italic;font-size:14px}
+.flash{min-height:270px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;padding:26px}
+.flash .meta{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+.flash .ans{display:none}
+.flash.flipped .ans{display:block}
+.rowbtns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.boxdots{display:flex;gap:4px;justify-content:center}
+.boxdots i{width:7px;height:7px;border-radius:99px;background:var(--line)}
+.boxdots i.on{background:var(--gold)}
+.tile{display:inline-block;font-family:var(--arab);font-size:22px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:6px 14px;margin:4px;cursor:pointer;direction:rtl}
+.tile:hover{border-color:var(--gold-dim)}
+.tile.used{opacity:.25;pointer-events:none}
+#sb-answer{min-height:56px;border:1px dashed var(--line);border-radius:10px;padding:8px;direction:rtl;text-align:center}
+.good{color:var(--green)}.bad{color:var(--red)}
+
+/* module cards */
+.mod{display:flex;gap:12px;align-items:flex-start}
+.mod .cr{font-family:var(--serif);font-size:22px;color:var(--gold2);font-weight:700;min-width:38px}
+select.status{background:var(--panel2);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:5px 8px;font-size:12px;margin-top:8px}
+details{border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-top:8px;background:var(--panel2)}
+details summary{cursor:pointer;font-weight:600;font-size:13.5px;color:var(--gold2);list-style:none}
+details summary::before{content:"▸ ";color:var(--ink3)}
+details[open] summary::before{content:"▾ "}
+details .body{margin-top:8px;font-size:13.5px;color:var(--ink2)}
+textarea,input[type=text]{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:10px;font-family:var(--sans);font-size:13.5px;resize:vertical}
+textarea:focus,input:focus{outline:1px solid var(--gold-dim)}
+
+/* reading list */
+.readli{padding:7px 0;border-bottom:1px solid rgba(42,48,64,.5);font-size:13.5px}
+.readli:last-child{border-bottom:0}
+.readli b{color:var(--ink)}
+.readli .why{color:var(--ink3);font-size:12.5px}
+
+/* toast */
+#toast{position:fixed;bottom:86px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--gold);color:#17130a;font-weight:600;font-size:13.5px;padding:10px 20px;border-radius:99px;opacity:0;pointer-events:none;transition:.3s;z-index:60}
+#toast.show{opacity:1;transform:translateX(-50%)}
+
+/* mobile bottom nav */
+nav#bottom{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(14,16,20,.92);backdrop-filter:blur(14px);border-top:1px solid var(--line);z-index:50;padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
+nav#bottom .wrap{display:flex;justify-content:space-around}
+nav#bottom button{background:none;border:0;color:var(--ink3);font-size:10px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px 8px}
+nav#bottom button .ic{font-size:19px}
+nav#bottom button.on{color:var(--gold2)}
+
+@media(max-width:840px){
+  nav#side{display:none}
+  nav#bottom{display:block}
+  main{padding-top:22px}
+}
+::selection{background:var(--gold-dim);color:#0e1014}
+</style>
+</head>
+<body>
+<div id="app">
+  <nav id="side">
+    <div class="brand">
+      <div class="ar">بَيْت الحِكْمَة</div>
+      <div class="en">Bayt al-Hikma</div>
+      <div class="sub">Ibrahim's learning OS</div>
+    </div>
+    <button class="navbtn" data-v="home"><span class="ic">◈</span>Today<span class="pill" id="due-pill" style="display:none">0</span></button>
+    <button class="navbtn" data-v="arabic"><span class="ic">ع</span>Arabic</button>
+    <button class="navbtn" data-v="stem"><span class="ic">∂</span>Maths &amp; Eng</button>
+    <button class="navbtn" data-v="code"><span class="ic">λ</span>Coding</button>
+    <button class="navbtn" data-v="poly"><span class="ic">✦</span>Polymath</button>
+    <button class="navbtn" data-v="life"><span class="ic">☾</span>Life</button>
+    <div class="foot">Streak <b id="side-streak">0</b> · Level <b id="side-level">1</b><br><span id="side-xp">0 XP</span></div>
+  </nav>
+
+  <main>
+    <section class="view" id="v-home"></section>
+    <section class="view" id="v-arabic"></section>
+    <section class="view" id="v-stem"></section>
+    <section class="view" id="v-code"></section>
+    <section class="view" id="v-poly"></section>
+    <section class="view" id="v-life"></section>
+  </main>
+</div>
+
+<nav id="bottom"><div class="wrap">
+  <button data-v="home"><span class="ic">◈</span>Today</button>
+  <button data-v="arabic"><span class="ic">ع</span>Arabic</button>
+  <button data-v="stem"><span class="ic">∂</span>Maths</button>
+  <button data-v="code"><span class="ic">λ</span>Code</button>
+  <button data-v="poly"><span class="ic">✦</span>Poly</button>
+  <button data-v="life"><span class="ic">☾</span>Life</button>
+</div></nav>
+
+<div id="toast"></div>
+
+<script src="data_arabic.js"></script>
+<script src="data_stem.js"></script>
+<script src="content_polymath.js"></script>
+<script src="app.js"></script>
+<script>
+if("serviceWorker" in navigator && location.protocol.startsWith("http")){
+  navigator.serviceWorker.register("sw.js").catch(()=>{});
+}
+</script>
+</body>
+</html>

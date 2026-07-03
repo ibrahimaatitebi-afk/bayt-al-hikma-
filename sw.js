@@ -1,4 +1,4 @@
-const CACHE = "bayt-v1";
+const CACHE = "bayt-v2";
 const CORE = [
   "./", "./index.html", "./app.js",
   "./data_arabic.js", "./data_stem.js", "./content_polymath.js",
